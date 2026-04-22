@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,34 +7,28 @@
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-
+    
     <!-- Leaflet Map CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
     <!-- Chart.js for Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
-
     <meta name="description" content="State of the art AI Emergency Rescue and Ambulance Dispatch Operator Portal">
 </head>
-
 <body class="dark-theme">
     <div class="app-container">
-
+        
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
                 <span class="material-icons-round brand-icon">medical_services</span>
                 <h1>AeroRescue</h1>
             </div>
-
+            
             <nav class="side-nav">
                 <button class="nav-btn active" data-target="view-dashboard">
                     <span class="material-icons-round">dashboard</span> Active Dispatch
@@ -50,10 +43,9 @@
                     <span class="material-icons-round">settings</span> Settings
                 </button>
             </nav>
-
+            
             <div class="operator-profile">
-                <img src="https://ui-avatars.com/api/?name=Op+Jane&background=10b981&color=fff" alt="Operator"
-                    class="avatar">
+                <img src="https://ui-avatars.com/api/?name=Op+Jane&background=10b981&color=fff" alt="Operator" class="avatar">
                 <div class="op-details">
                     <p class="op-name">Jane Doe</p>
                     <p class="op-status"><span class="status-dot"></span> Online</p>
@@ -63,12 +55,12 @@
 
         <!-- Main Content -->
         <main class="main-content">
-
+            
             <!-- VIEW: DISPATCH DASHBOARD -->
             <section id="view-dashboard" class="view-section active-view">
-
+                
                 <div class="dashboard-layout">
-
+                    
                     <!-- Left: Live Patient Requests -->
                     <div class="requests-panel panel glassmorphism">
                         <div class="panel-header">
@@ -78,6 +70,16 @@
                         <div class="incident-list-container" id="incident-list">
                             <!-- Populated by JS -->
                         </div>
+                        <div class="panel-footer" style="padding: 12px 14px; background: rgba(0,0,0,0.3); border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="material-icons-round" style="color: var(--accent-green); font-size: 18px;">auto_mode</span>
+                                <span style="font-size: 12px; font-weight: 600; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px;">Auto-Dispatch AI</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="auto-dispatch-toggle">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
                     </div>
 
                     <!-- Center: Map & Map Overlays -->
@@ -85,19 +87,16 @@
                         <div class="map-header">
                             <h2>Live Tracking & Routes</h2>
                             <div class="map-badges">
-                                <span class="badge"
-                                    style="background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3)">
-                                    <span class="material-icons-round"
-                                        style="font-size:14px; margin-right:4px;">route</span> GPS Active
+                                <span class="badge" style="background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3)">
+                                    <span class="material-icons-round" style="font-size:14px; margin-right:4px;">route</span> GPS Active
                                 </span>
                                 <span class="badge traffic-badge" id="traffic-override-badge" style="display:none">
-                                    <span class="material-icons-round"
-                                        style="font-size:14px; margin-right:4px;">traffic</span>
+                                    <span class="material-icons-round" style="font-size:14px; margin-right:4px;">traffic</span>
                                     <span id="traffic-override-count">0</span> Signals Cleared
                                 </span>
                             </div>
                         </div>
-
+                        
                         <!-- Leaflet Interactive Map -->
                         <div class="map-frame-wrapper" id="map-frame"></div>
                     </div>
@@ -114,8 +113,7 @@
                         <div id="tab-dispatch" class="tab-content active-tab">
                             <div id="selected-incident-details" class="empty-state">
                                 <span class="material-icons-round empty-icon">front_hand</span>
-                                <p>Select an incident from the Live Requests column to review its data and verify caller
-                                    ID.</p>
+                                <p>Select an incident from the Live Requests column to review its data and verify caller ID.</p>
                             </div>
                         </div>
 
@@ -125,8 +123,7 @@
                                 <!-- Dynamic List of Pending Services -->
                                 <div id="no-active-services" class="empty-state">
                                     <span class="material-icons-round empty-icon">assignment_turned_in</span>
-                                    <p>No active pending services. Dispatched units will be tracked here until they
-                                        reach the hospital.</p>
+                                    <p>No active pending services. Dispatched units will be tracked here until they reach the hospital.</p>
                                 </div>
                             </div>
                         </div>
@@ -140,8 +137,7 @@
                 <div id="driver-view-content" class="driver-empty-state">
                     <span class="material-icons-round">local_shipping</span>
                     <h2>No Active Dispatches</h2>
-                    <p>Dispatch an ambulance from the Active Dispatch view to see the Driver View with live hospital
-                        routing and traffic signal management.</p>
+                    <p>Dispatch an ambulance from the Active Dispatch view to see the Driver View with live hospital routing and traffic signal management.</p>
                 </div>
             </section>
 
@@ -151,13 +147,13 @@
                     <h2>Performance & Historic Data</h2>
                     <p>Review service times, closed dispatch history, and callback actions.</p>
                 </div>
-
+                
                 <div class="analytics-grid">
                     <div class="chart-container panel glassmorphism">
                         <h3>Response Time Statistics (Last 7 Days)</h3>
                         <canvas id="responseTimeChart"></canvas>
                     </div>
-
+                    
                     <div class="history-list-container panel glassmorphism">
                         <h3>Closed & Completed Records</h3>
                         <div class="history-table-wrapper">
@@ -165,6 +161,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Patient Name</th>
                                         <th>Service Type</th>
                                         <th>Location</th>
                                         <th>Unit Assgn.</th>
@@ -183,13 +180,13 @@
                 </div>
             </section>
 
-            <!-- VIEW: SETTINGS -->
-            <section id="view-settings" class="view-section">
+             <!-- VIEW: SETTINGS -->
+             <section id="view-settings" class="view-section">
                 <div class="panel glassmorphism" style="max-width: 600px;">
                     <h2>System Settings</h2>
                     <p>Configuration panel for operator aesthetics and dispatch logic.</p>
                 </div>
-            </section>
+             </section>
 
         </main>
     </div>
@@ -198,5 +195,4 @@
     <audio id="ringtone-mock" loop src=""></audio>
     <script src="script.js"></script>
 </body>
-
 </html>
